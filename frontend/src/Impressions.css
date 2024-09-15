@@ -1,0 +1,67 @@
+.intro-container div {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 250px; /* Fixed height for the card */
+  width: 100%; /* Ensure it takes full width of the grid column */
+  background-color: #ffffff;
+  border-radius: 10px;
+  box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
+  font-size: 18px;
+  font-weight: bold;
+  color: #333;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  overflow: hidden; /* Hide overflow to keep the image contained */
+}
+
+.intro-wrapper {
+  width: 600px;
+  height: 600px;
+  padding: 20px;
+  background-color: #f8f9fa;
+  border-radius: 10px;
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.impression-header {
+  align-items: center;
+  justify-content: center;
+  padding: 10px;
+  background-color: #007bff;
+  color: #ffffff;
+  font-size: 20px;
+  font-weight: bold;
+  border-radius: 10px; /* Apply 10px radius to all corners */
+  margin-bottom: 20px;
+}
+
+.intro-container {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  grid-gap: 20px;
+}
+
+.intro-container div {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 250px;
+  background-color: #ffffff;
+  border-radius: 10px;
+  box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
+  font-size: 18px;
+  font-weight: bold;
+  color: #333;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.intro-container div:hover {
+  transform: translateY(-5px);
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.intro-container img {
+  width: 100%; /* Make image width fill the card */
+  height: 100%; /* Make image height fill the card */
+  object-fit: cover; /* Ensure the image covers the card without distortion */
+}

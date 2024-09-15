@@ -1,0 +1,104 @@
+/* Main App container */
+.App {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  background-color: #f8f9fa; /* Match the background color from the other pages */
+  font-family: Arial, sans-serif; /* Consistent font family */
+  text-align: center;
+  padding: 20px; /* Added padding to match the general spacing */
+  border-radius: 10px; /* Add border-radius for a rounded look */
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1); /* Match the box-shadow */
+}
+
+/* Logo styling */
+.App-logo {
+  height: 40vmin;
+  pointer-events: none;
+  margin-bottom: 20px; /* Add margin to match spacing consistency */
+}
+
+/* Animation for logo */
+@media (prefers-reduced-motion: no-preference) {
+  .App-logo {
+    animation: App-logo-spin infinite 20s linear;
+  }
+}
+
+/* Header styling */
+.App-header {
+  background-color: #ffffff; /* Changed to white or neutral color */
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: calc(10px + 2vmin);
+  color: #333; /* Changed to a darker text color for contrast */
+  padding: 20px; /* Added padding to match other styles */
+  border-radius: 10px; /* Add border-radius for consistency */
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1); /* Match the box-shadow */
+}
+
+/* Link styling */
+.App-link {
+  color: #007bff; /* Blue color for links */
+  text-decoration: none; /* Ensure text decoration is consistent */
+}
+
+/* Keyframes for logo spinning */
+@keyframes App-logo-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* Navigation buttons */
+.navigation-buttons {
+  margin-top: 20px;
+  display: flex;
+  justify-content: space-between;
+  width: 200px;
+}
+
+/* Button styling */
+button {
+  padding: 10px 20px;
+  font-size: 16px;
+  color: #007bff; /* Blue text color */
+  background-color: transparent; /* Transparent background for outline effect */
+  border: 2px solid #007bff; /* Blue border for outlined style */
+  border-radius: 10px; /* Match the border-radius */
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease; /* Add transition for consistency */
+  box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1); /* Match the box-shadow */
+}
+
+/* Hover effect for buttons */
+button:hover {
+  background-color: #007bff; /* Blue background on hover */
+  color: #ffffff; /* White text on hover */
+  transform: translateY(-3px);
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+/* Navigation button styling */
+button.navigation {
+  color: #007bff; /* Blue text color */
+  background-color: transparent; /* Transparent background for outline effect */
+  border: 2px solid #007bff; /* Blue border for outlined style */
+  transition: background-color 0.3s ease, color 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+/* Hover effect for navigation buttons */
+button.navigation:hover {
+  background-color: #007bff; /* Blue background on hover */
+  color: #ffffff; /* White text on hover */
+  transform: translateY(-3px);
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+}

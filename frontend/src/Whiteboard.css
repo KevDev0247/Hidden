@@ -1,0 +1,98 @@
+.webcam-container {
+  width: 1200px; /* Adjusted to fit both canvases */
+  height: 600px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  background-color: #f8f9fa;
+  border-radius: 10px;
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.lorem-box {
+  width: 100%;
+  max-width: 500px;
+  height: 400px; /* Increased height */
+  border: 2px solid #007bff;
+  border-radius: 10px;
+  margin-bottom: 20px;
+  padding: 10px;
+  box-sizing: border-box;
+  overflow: auto;
+}
+
+.canvas-container {
+  display: flex;
+  gap: 20px; /* Space between canvases */
+  margin-bottom: 20px;
+}
+
+.webcam-view {
+  border: 2px solid #007bff;
+  height: 400px;
+  border-radius: 10px;
+}
+
+.button-container {
+  display: flex;
+  justify-content: center; /* Center buttons horizontally */
+  gap: 10px;
+  width: 100%;
+  max-width: 500px;
+}
+
+button {
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 16px;
+  transition: background-color 0.3s ease, transform 0.3s ease,
+    box-shadow 0.3s ease;
+}
+
+button.submit {
+  background-color: #007bff;
+  color: white;
+}
+
+button.erase {
+  background-color: #f44336; /* Red background for erase button */
+  color: white; /* White text color for visibility */
+}
+
+button:hover {
+  transform: translateY(-3px);
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+button.submit:hover {
+  background-color: #0056b3;
+}
+
+button.erase:hover {
+  background-color: #d32f2f; /* Darker red on hover */
+  color: white; /* Ensure text color remains white */
+}
+
+button:disabled {
+  background-color: #ccc;
+  cursor: not-allowed;
+  box-shadow: none;
+}
+
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 400px;
+  padding: 10px 0;
+  background-color: #007bff;
+  color: #ffffff;
+  font-size: 20px;
+  font-weight: bold;
+  border-radius: 10px; /* Apply 10px radius to all corners */
+  margin-bottom: 20px;
+}
