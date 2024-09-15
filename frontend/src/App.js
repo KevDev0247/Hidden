@@ -2,11 +2,11 @@ import { useState } from "react";
 import "./App.css";
 import CustomWebcam from "./CustomWebcam";
 import Impressions from "./Impressions";
-import Whiteboard from './Whiteboard';
-import { GlobalProvider } from './GlobalContext';
+import Whiteboard from "./Whiteboard";
+import { GlobalProvider } from "./GlobalContext";
 import { collection, getDocs } from "firebase/firestore";
 import { db } from "./firebase";
-import { deleteDoc, doc } from 'firebase/firestore';
+import { deleteDoc, doc } from "firebase/firestore";
 
 function App() {
   const [step, setStep] = useState(1);
@@ -25,7 +25,7 @@ function App() {
       const docRef = doc(db, collectionName, docSnap.id); // Use the provided collectionName
       await deleteDoc(docRef);
     });
-  
+
     await Promise.all(deletePromises);
   };
 
@@ -35,7 +35,7 @@ function App() {
 
     await deleteAllDocsInSnapshot(snapshot1, "processed_images");
     await deleteAllDocsInSnapshot(snapshot2, "drawings");
-  }
+  };
 
   const nextStep = () => {
     if (step === 3) {
@@ -48,12 +48,22 @@ function App() {
   return (
     <GlobalProvider>
       <div className="App">
+        <img
+          src="https://d112y698adiu2z.cloudfront.net/photos/production/software_thumbnail_photos/003/022/200/datas/medium.png"
+          alt="Logo"
+          className="app-logo-static"
+        />{" "}
+        {/* Replace with your online image URL */}
         {step === 1 && <CustomWebcam />}
         {step === 2 && <Whiteboard />}
         {step === 3 && <Impressions />}
         <div className="navigation-buttons">
-          <button className="navigation" onClick={prevStep}>Previous</button>
-          <button className="navigation" onClick={nextStep}>Next</button>
+          <button className="navigation" onClick={prevStep}>
+            Previous
+          </button>
+          <button className="navigation" onClick={nextStep}>
+            Next
+          </button>
         </div>
       </div>
     </GlobalProvider>

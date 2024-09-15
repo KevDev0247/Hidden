@@ -1,9 +1,9 @@
 import React, { useState, useRef, useEffect, useContext } from "react";
-import { GlobalContext } from './GlobalContext';
-import { collection, getDocs, addDoc } from 'firebase/firestore';
-import { db, storage } from './firebase';
-import { ref, uploadBytes, getDownloadURL } from 'firebase/storage';
-import { v4 as uuidv4 } from 'uuid';
+import { GlobalContext } from "./GlobalContext";
+import { collection, getDocs, addDoc } from "firebase/firestore";
+import { db, storage } from "./firebase";
+import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
+import { v4 as uuidv4 } from "uuid";
 import "./Whiteboard.css";
 
 const Whiteboard = () => {
@@ -11,21 +11,22 @@ const Whiteboard = () => {
   const isDrawing = useRef(false);
   const { id } = useContext(GlobalContext);
   const [doc, setDoc] = useState();
+  const [loading, setLoading] = useState(false);
+  const [showPopup, setShowPopup] = useState(false);
 
   useEffect(() => {
     const canvas = canvasRef1.current;
-    const ctx = canvas.getContext('2d');
-  
-    // Fill the canvas with a white background
-    ctx.fillStyle = 'white'; // Set the fill color to white
-    ctx.fillRect(0, 0, canvas.width, canvas.height); // Fill the entire canvas
+    const ctx = canvas.getContext("2d");
+
+    ctx.fillStyle = "white";
+    ctx.fillRect(0, 0, canvas.width, canvas.height);
 
     const fetchData = async () => {
       try {
-        const snapshot = await getDocs(collection(db, 'processed_images'));
+        const snapshot = await getDocs(collection(db, "processed_images"));
         const data = snapshot.docs
-          .map(doc => ({ id: doc.id, ...doc.data() }))
-          .filter(doc => doc.id !== id);
+          .map((doc) => ({ id: doc.id, ...doc.data() }))
+          .filter((doc) => doc.id !== id);
         setDoc(data[0]);
       } catch (err) {
         console.log(err);
@@ -33,7 +34,7 @@ const Whiteboard = () => {
     };
 
     fetchData();
-  }, []);
+  }, [id]);
 
   const getCoordinates = (event) => {
     const canvas = canvasRef1.current;
@@ -72,44 +73,59 @@ const Whiteboard = () => {
   const handleErase = () => {
     const canvas1 = canvasRef1.current;
     const context1 = canvas1.getContext("2d");
-    context1.clearRect(0, 0, canvas1.width, canvas1.height); // Clear the first canvas
+    context1.clearRect(0, 0, canvas1.width, canvas1.height);
   };
 
-  const getCanvasBlob = async (canvas, type = 'image/jpeg') => {
+  const getCanvasBlob = async (canvas, type = "image/jpeg") => {
     return new Promise((resolve, reject) => {
-      canvas.toBlob(
-        (blob) => {
-          if (blob) {
-            resolve(blob);
-          } else {
-            reject(new Error('Failed to convert canvas to blob.'));
-          }
-        },
-        type
-      );
+      canvas.toBlob((blob) => {
+        if (blob) {
+          resolve(blob);
+        } else {
+          reject(new Error("Failed to convert canvas to blob."));
+        }
+      }, type);
     });
   };
 
   const handleSubmit = async () => {
+    setLoading(true);
+
     const canvas = canvasRef1.current;
     if (!canvas) return;
 
-    const blob = await getCanvasBlob(canvas);
-
-    const storageRef = ref(storage, `images/${uuidv4()}`);
-    await uploadBytes(storageRef, blob);
-    const downloadURL = await getDownloadURL(storageRef);
-
-    console.log("url is like ", downloadURL)
-
     try {
-      await addDoc(collection(db, 'drawings'), {
+      const blob = await getCanvasBlob(canvas);
+      const storageRef = ref(storage, `images/${uuidv4()}`);
+      await uploadBytes(storageRef, blob);
+      const downloadURL = await getDownloadURL(storageRef);
+
+      console.log("url is like ", downloadURL);
+
+      await addDoc(collection(db, "drawings"), {
         image: downloadURL,
       });
+
       console.log("Data uploaded successfully");
+      setShowPopup(true); // Show the pop-up window
     } catch (error) {
       console.error("Error uploading data", error);
+    } finally {
+      setLoading(false);
     }
+  };
+  const Popup = ({ message, onClose }) => {
+    return (
+      <div className="popup-overlay">
+        <div className="popup">
+          <h2>Success!</h2>
+          <p>{message}</p>
+          <button className="close-popup" onClick={onClose}>
+            Close
+          </button>
+        </div>
+      </div>
+    );
   };
 
   const handleMouseDown = (e) => {
@@ -182,13 +198,19 @@ const Whiteboard = () => {
         </div>
       </div>
       <div className="button-container">
-        <button className="submit" onClick={handleSubmit}>
-          Submit
+        <button className="submit" onClick={handleSubmit} disabled={loading}>
+          {loading ? "Submitting..." : "Submit"}
         </button>
-        <button className="erase" onClick={handleErase}>
+        <button className="erase" onClick={handleErase} disabled={loading}>
           Erase
         </button>
       </div>
+      {showPopup && (
+        <Popup
+          message="Your drawing was submitted successfully!"
+          onClose={() => setShowPopup(false)}
+        />
+      )}
     </div>
   );
 };
